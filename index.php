@@ -53,12 +53,16 @@ $opts = WP_Auth0_Options::Instance();
 				<p>%s - Avatar from user ID</p>
 				<p>%s - Avatar from <code>WP_Post</code> object</p>
 				<p>%s - Avatar from <code>WP_User</code> object</p>
+				<p>%s</p>
 				',
 				get_the_title(),
 				get_avatar( $this_author, $avatar_size ),
 				get_avatar( get_the_author_meta( 'email', $this_author ), $avatar_size ),
 				get_avatar( $this_post, $avatar_size ),
-				get_avatar( new WP_User( $this_author ), $avatar_size )
+				get_avatar( new WP_User( $this_author ), $avatar_size ),
+				have_comments()
+					? 'Avatar from <code>WP_Comment</code> object'
+					: 'Add a comment to test comment avatars'
 			);
 		}
 	} else {
