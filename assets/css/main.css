@@ -1,0 +1,19 @@
+body {
+    background: #F5F7F9;
+}
+
+article {
+    max-width: 800px;
+    margin: 3em auto;
+    padding: 3em 4%;
+    background: white;
+}
+
+pre {
+    padding: 1em;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
