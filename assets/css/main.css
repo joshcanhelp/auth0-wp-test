@@ -17,3 +17,11 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+img.avatar {
+    border: 4px solid #EACA2C
+}
+
+img.avatar-auth0 {
+    border-color: #EB5424
+}
