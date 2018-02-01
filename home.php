@@ -52,7 +52,7 @@
 		<h2>Auth0 Client settings</h2>
 
 		<p><strong>Note:</strong> If you're seeing a client ID below but no client information, go to APIs in your <a
-				href="https://manage.auth0.com/#/apis" target="_blank">Auth0 dashboard</a>, edit the <strong>Auth0 Management API</strong>, click the <strong>Non Interactive Clients</strong> tab, expand the row for <strong><?php echo get_auth0_curatedBlogName() ?></strong>, and add the <code>read:clients</code> scope. This is not required for the plugin to operate properly, only for the display below.</p>
+				href="https://manage.auth0.com/#/apis" target="_blank">Auth0 dashboard</a>, edit the <strong>Auth0 Management API</strong>, click the <strong>Non Interactive Clients</strong> tab, expand the row for <strong><?php echo get_auth0_curatedBlogName() ?></strong>, and add the <code>read:clients</code> scope. This is not required for the plugin to operate properly, only for the testing display below.</p>
 
 		<hr>
 

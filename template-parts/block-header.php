@@ -14,7 +14,7 @@
 
 <header class="jumbotron">
 	<a href="<?php echo home_url(); ?>">
-		<img src="<?php echo get_template_directory_uri() ?>/assets/img/logo-grey.png" alt="Auth0" width="500">
+		<img src="<?php echo get_template_directory_uri() ?>/assets/img/logo-grey.png" alt="Auth0" width="400">
 	</a>
 	<h1><?php echo is_single() ? get_the_title() : get_bloginfo( 'name' ); ?></h1>
 </header>
