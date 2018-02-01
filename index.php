@@ -36,6 +36,38 @@ $opts = WP_Auth0_Options::Instance();
 		<div class="alert alert-warning"><strong>No current WP session</strong></div>
 	<?php endif; ?>
 
+	<h2>Posts</h2>
+	<?php
+	$post_q = new WP_Query( [ 'post_type' => 'post', 'posts_per_page' => 1 ] );
+	if ( $post_q->have_posts() ) {
+		while ( $post_q->have_posts() ) {
+			$post_q->the_post();
+
+			$this_post = $post_q->post;
+			$this_author = $this_post->post_author;
+			$avatar_size = 50;
+			
+			printf(
+				'<h4>%s</h4>
+				<p>%s - Avatar from email</p>
+				<p>%s - Avatar from user ID</p>
+				<p>%s - Avatar from <code>WP_Post</code> object</p>
+				<p>%s - Avatar from <code>WP_User</code> object</p>
+				',
+				get_the_title(),
+				get_avatar( $this_author, $avatar_size ),
+				get_avatar( get_the_author_meta( 'email', $this_author ), $avatar_size ),
+				get_avatar( $this_post, $avatar_size ),
+				get_avatar( new WP_User( $this_author ), $avatar_size )
+			);
+		}
+	} else {
+		printf(
+			'<p><i>No posts found. Add a post to test avatar overrides</i></p>'
+		);
+	}
+	?>
+
 	<h2>Current Auth0 settings</h2>
 	<?php if ( ! class_exists( 'WP_Auth0_Options' ) ) : ?>
 		<div class="alert alert-warning"><strong>Auth0 is not installed</strong></div>
@@ -70,3 +102,4 @@ $opts = WP_Auth0_Options::Instance();
 <!-- END of wp_footer() -->
 </body>
 </html>
+}
