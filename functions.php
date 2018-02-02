@@ -66,3 +66,25 @@ function auth0_theme_wp_enqueue_scripts() {
 }
 
 add_action( 'wp_enqueue_scripts', 'auth0_theme_wp_enqueue_scripts' );
+
+/**
+ * Register widget areas and update sidebar with default widgets.
+ */
+function auth0_theme_hook_widgets_init() {
+
+	register_sidebar( array(
+		'name'          => 'Sidebar',
+		'id' => 'sidebar-1',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h6 class="widget-title">',
+		'after_title'   => '</h6>',
+		'fallback' => FALSE
+	) );
+
+
+	// Shortcodes in the Text widget
+	add_filter( 'widget_text', 'shortcode_unautop' );
+	add_filter( 'widget_text', 'do_shortcode' );
+}
+add_action( 'widgets_init', 'auth0_theme_hook_widgets_init' );

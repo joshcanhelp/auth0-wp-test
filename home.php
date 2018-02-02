@@ -3,6 +3,8 @@
 	<article>
 		<?php
 		$opts = WP_Auth0_Options::Instance();
+		$all_opts = $opts->get_options();
+		ksort( $all_opts );
 		?>
 		<h2>Current user</h2>
 
@@ -46,7 +48,7 @@
 		<?php if ( ! class_exists( 'WP_Auth0_Options' ) ) : ?>
 			<div class="alert alert-warning"><strong>Auth0 is not installed</strong></div>
 		<?php else : ?>
-			<pre><?php var_dump( $opts->get_options() ); ?></pre>
+			<pre><?php var_dump( $all_opts ); ?></pre>
 		<?php endif; ?>
 
 		<h2>Auth0 Client settings</h2>
