@@ -51,21 +51,31 @@ function auth0_theme_hook_after_setup_theme() {
 add_action( 'after_setup_theme', 'auth0_theme_hook_after_setup_theme' );
 
 /**
- * Queuing up JS and CSS for the front-end.
+ * Queuing up CSS for the front-end.
  *
  * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
- * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_script
- *
  */
 
 function auth0_theme_wp_enqueue_scripts() {
-
 	wp_enqueue_style( 'auth0-core', '//cdn.auth0.com/styleguide/core/2.0.5/core.min.css' );
 	wp_enqueue_style( 'auth0-comp', '//cdn.auth0.com/styleguide/components/2.0.0/components.min.css' );
 	wp_enqueue_style( 'auth0-test', get_stylesheet_directory_uri() . '/assets/css/main.css' );
 }
 
 add_action( 'wp_enqueue_scripts', 'auth0_theme_wp_enqueue_scripts' );
+
+/**
+ * Queuing up CSS for wp-login.
+ *
+ * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
+ */
+
+function auth0_theme_login_enqueue_scripts() {
+
+	wp_enqueue_style( 'auth0-login', get_stylesheet_directory_uri() . '/assets/css/wp-login.css' );
+}
+
+add_action( 'login_enqueue_scripts', 'auth0_theme_login_enqueue_scripts' );
 
 /**
  * Register widget areas and update sidebar with default widgets.
