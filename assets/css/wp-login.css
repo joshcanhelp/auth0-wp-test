@@ -1,5 +1,5 @@
 body {
-    background: radial-gradient(#40404b, #111118) rgba(34,34,40,0.94);
+    background: radial-gradient(#44C7F4, #16214D);
 }
 
 #login h1 {
@@ -12,6 +12,9 @@ body {
 }
 
 .auth0-lock {
-    box-shadow: 0 0 40px 4px #111118;
     border-radius: 5px;
+}
+
+.login form.auth0-lock-widget {
+    box-shadow: 0 0 40px 4px #111118;
 }
