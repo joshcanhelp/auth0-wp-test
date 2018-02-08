@@ -18,12 +18,19 @@ error_reporting(E_ALL);
 /**
  * Do not allow this file to be loaded directly
  */
-
 if ( ! function_exists( 'add_action' ) ) {
 	die( 'Nothing to do...' );
 }
 
+/**
+ * Constants
+ */
 define( 'AUTH0_THEME_ROOT', dirname( __FILE__ ) );
+
+/**
+ * Sample actions and filters ... activate and have fun!
+ */
+require 'inc/hooks.php';
 
 /**
  * Add theme-specific functionality.
@@ -32,7 +39,6 @@ define( 'AUTH0_THEME_ROOT', dirname( __FILE__ ) );
  * @see http://codex.wordpress.org/Plugin_API/Action_Reference/after_setup_theme
  * @see https://codex.wordpress.org/Function_Reference/add_theme_support#Addable_Features
  */
-
 function auth0_theme_hook_after_setup_theme() {
 
 	add_theme_support( 'title-tag' );
@@ -55,7 +61,6 @@ add_action( 'after_setup_theme', 'auth0_theme_hook_after_setup_theme' );
  *
  * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
  */
-
 function auth0_theme_wp_enqueue_scripts() {
 	wp_enqueue_style( 'auth0-core', '//cdn.auth0.com/styleguide/core/2.0.5/core.min.css' );
 	wp_enqueue_style( 'auth0-comp', '//cdn.auth0.com/styleguide/components/2.0.0/components.min.css' );
@@ -69,12 +74,9 @@ add_action( 'wp_enqueue_scripts', 'auth0_theme_wp_enqueue_scripts' );
  *
  * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
  */
-
 function auth0_theme_login_enqueue_scripts() {
-
 	wp_enqueue_style( 'auth0-login', get_stylesheet_directory_uri() . '/assets/css/wp-login.css' );
 }
-
 add_action( 'login_enqueue_scripts', 'auth0_theme_login_enqueue_scripts' );
 
 /**
