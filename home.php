@@ -68,12 +68,12 @@
 			<div class="alert alert-warning"><strong>Client ID is not saved</strong></div>
 		<?php else : ?>
 			<h3><strong>Client ID:</strong> <?php echo $opts->get( 'client_id' ) ?></h3>
-			<pre><?php
-				var_dump( WP_Auth0_Api_Client::get_client(
-					WP_Auth0_Api_Client::get_client_token(),
-					$opts->get( 'client_id' )
-				) );
-				?></pre>
+<!--			<pre>--><?php
+//				var_dump( WP_Auth0_Api_Client::get_client(
+//					WP_Auth0_Api_Client::get_client_token(),
+//					$opts->get( 'client_id' )
+//				) );
+//				?><!--</pre>-->
 		<?php endif; ?>
 		<?php endif; ?>
 	</article>
