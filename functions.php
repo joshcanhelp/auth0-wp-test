@@ -31,6 +31,7 @@ define( 'AUTH0_THEME_ROOT', dirname( __FILE__ ) );
  * Sample actions and filters ... activate and have fun!
  */
 require 'inc/hooks.php';
+require 'inc/debug.php';
 
 /**
  * Add theme-specific functionality.
