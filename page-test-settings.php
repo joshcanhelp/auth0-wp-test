@@ -8,8 +8,7 @@ ksort( $all_opts );
 ?>
 
     <article>
-        <p><a href="<?php echo home_url() ?>"><small>&larr; Back to home</small></a></p>
-        <h1>TPL Override: Auth0 Settings</h1>
+      <?php get_template_part( 'template-parts/block', 'test-tpl-header' ) ?>
 
         <div class="the-content">
           <?php if ( ! class_exists( 'WP_Auth0_Options' ) ) : ?>

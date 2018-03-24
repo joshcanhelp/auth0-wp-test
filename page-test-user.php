@@ -7,7 +7,7 @@ $all_opts = $opts->get_options();
 ?>
 
     <article>
-        <h1>TPL Override: Test Current User</h1>
+      <?php get_template_part( 'template-parts/block', 'test-tpl-header' ) ?>
 
         <div class="the-content">
           <?php

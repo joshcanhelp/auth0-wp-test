@@ -8,7 +8,7 @@
       <div class="the-content">
           <p><strong>Note:</strong> You'll need to create the following pages for the test fixtures to display.</p>
           <ul>
-            <?php foreach ( [ 'settings', 'client', 'user', 'avatars' ] as $slug ) : ?>
+            <?php foreach ( [ 'settings', 'client', 'user', 'avatars', 'shortcode', 'widget' ] as $slug ) : ?>
                 <li><a href="<?php echo home_url( 'auth-zero/test-' ) . $slug ?>">
                         Test <?php echo ucfirst($slug) ?>
                     </a></li>
