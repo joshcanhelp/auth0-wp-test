@@ -142,3 +142,22 @@ function auth0_theme_hook_auth0_login_css( $css ) {
 	return $css;
 }
 //add_filter( 'auth0_login_css', 'auth0_theme_hook_auth0_login_css' );
+
+/**
+ * Append a cache-breaking parameter to login_url redirects
+ *
+ * @param string $login_url
+ * @param string $redirect
+ *
+ * @return string
+ */
+function auth0_theme_hook_login_url( $login_url, $redirect )  {
+	if ( ! empty( $redirect ) ) {
+		$login_url = remove_query_arg( 'redirect_to', $login_url );
+		$redirect = add_query_arg( 'logged_in', 1, $redirect );
+		$redirect = urlencode( $redirect );
+		$login_url = add_query_arg( 'redirect_to', $redirect, $login_url );
+	}
+	return $login_url;
+}
+//add_filter( 'login_url', 'auth0_theme_hook_login_url', 10, 2 );
