@@ -1,5 +1,5 @@
 <?php
-get_template_part( 'template-parts/block', 'header' );
+get_template_part('template-parts/block', 'header');
 the_post();
 ?>
 
@@ -11,4 +11,4 @@ the_post();
 
 <?php get_sidebar(); ?>
 
-<?php get_template_part( 'template-parts/block', 'footer' ); ?>
+<?php get_template_part('template-parts/block', 'footer'); ?>

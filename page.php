@@ -1,5 +1,5 @@
 <?php
-get_template_part( 'template-parts/block', 'header' );
+get_template_part('template-parts/block', 'header');
 the_post();
 ?>
 
@@ -8,4 +8,4 @@ the_post();
         <div class="the-content"><?php the_content(); ?></div>
     </article>
 
-<?php get_template_part( 'template-parts/block', 'footer' ); ?>
+<?php get_template_part('template-parts/block', 'footer'); ?>

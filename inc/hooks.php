@@ -9,10 +9,12 @@
 /**
  * @param WP_User $user - WordPress user ID
  */
-function auth0_theme_hook_auth0_before_login ( $user ) {
-	echo '<strong>WP user</strong>:<br>' . '<pre>' . print_r( $user, TRUE ) . '</pre>' . '<hr>';
-	wp_die( 'Login process started!' );
+function auth0_theme_hook_auth0_before_login($user)
+{
+  echo '<strong>WP user</strong>:<br>' . '<pre>' . print_r($user, TRUE) . '</pre>' . '<hr>';
+  wp_die('Login process started!');
 }
+
 //add_action( 'auth0_before_login', 'auth0_theme_hook_auth0_before_login', 10, 1 );
 
 /**
@@ -22,14 +24,16 @@ function auth0_theme_hook_auth0_before_login ( $user ) {
  * @param string $id_token - ID token for the user from Auth0 (not used in code flow)
  * @param string $access_token - bearer access token from Auth0 (not used in implicit flow)
  */
-function auth0_theme_hook_auth0_user_login ( $user_id, $userinfo, $is_new, $id_token, $access_token ) {
-	echo '<strong>WP user ID</strong>:<br>' . $user_id . '<hr>';
-	echo '<strong>Auth0 user info</strong>:<br><pre>' . print_r( $userinfo, TRUE ) . '</pre><hr>';
-	echo '<strong>Added to WP DB?</strong>:<br>' . ( $is_new ? 'yep' : 'nope' ) . '' . '<hr>';
-	echo '<strong>ID Token</strong>:<br>' . ( $id_token ? $id_token : 'not provided' ) . '<hr>';
-	echo '<strong>Access Token</strong>:<br>' . ( $access_token ? $access_token : 'not provided' ) . '<hr>';
-	wp_die( 'Login successful!' );
+function auth0_theme_hook_auth0_user_login($user_id, $userinfo, $is_new, $id_token, $access_token)
+{
+  echo '<strong>WP user ID</strong>:<br>' . $user_id . '<hr>';
+  echo '<strong>Auth0 user info</strong>:<br><pre>' . print_r($userinfo, TRUE) . '</pre><hr>';
+  echo '<strong>Added to WP DB?</strong>:<br>' . ($is_new ? 'yep' : 'nope') . '' . '<hr>';
+  echo '<strong>ID Token</strong>:<br>' . ($id_token ? $id_token : 'not provided') . '<hr>';
+  echo '<strong>Access Token</strong>:<br>' . ($access_token ? $access_token : 'not provided') . '<hr>';
+  wp_die('Login successful!');
 }
+
 //add_action( 'auth0_user_login', 'auth0_theme_hook_auth0_user_login', 10, 5 );
 
 /**
@@ -39,14 +43,16 @@ function auth0_theme_hook_auth0_user_login ( $user_id, $userinfo, $is_new, $id_t
  * @param string $f_name - first name for created user
  * @param string $l_name - last name for created user
  */
-function auth0_theme_hook_wpa0_user_created ( $user_id, $email, $password, $f_name, $l_name ) {
-	echo '<strong>User ID</strong>:<br>' . $user_id . '<hr>';
-	echo '<strong>Email</strong>:<br>' . $email . '<hr>';
-	echo '<strong>Password</strong>:<br>' . $password . '<hr>';
-	echo '<strong>First name</strong>:<br>' . $f_name . '<hr>';
-	echo '<strong>Last name</strong>:<br>' . $l_name . '<hr>';
-	wp_die( 'User created!' );
+function auth0_theme_hook_wpa0_user_created($user_id, $email, $password, $f_name, $l_name)
+{
+  echo '<strong>User ID</strong>:<br>' . $user_id . '<hr>';
+  echo '<strong>Email</strong>:<br>' . $email . '<hr>';
+  echo '<strong>Password</strong>:<br>' . $password . '<hr>';
+  echo '<strong>First name</strong>:<br>' . $f_name . '<hr>';
+  echo '<strong>Last name</strong>:<br>' . $l_name . '<hr>';
+  wp_die('User created!');
 }
+
 //add_action( 'wpa0_user_created', 'auth0_theme_hook_wpa0_user_created', 10, 5 );
 
 /*
@@ -61,11 +67,13 @@ function auth0_theme_hook_wpa0_user_created ( $user_id, $email, $password, $f_na
  *
  * @return WP_User|null
  */
-function auth0_theme_hook_auth0_get_wp_user( $user, $userinfo ) {
-	$found_user = get_user_by( 'email', $userinfo->email );
-	$user = $found_user instanceof WP_User ? $user : null;
-	return $user;
+function auth0_theme_hook_auth0_get_wp_user($user, $userinfo)
+{
+  $found_user = get_user_by('email', $userinfo->email);
+  $user = $found_user instanceof WP_User ? $user : null;
+  return $user;
 }
+
 //add_filter( 'auth0_get_wp_user', 'auth0_theme_hook_auth0_get_wp_user', 1, 2 );
 
 /**
@@ -75,11 +83,13 @@ function auth0_theme_hook_auth0_get_wp_user( $user, $userinfo ) {
  *
  * @return string
  */
-function auth0_theme_hook_auth0_verify_email_page ( $html, $userinfo, $id_token ) {
-	$html = 'Hi ' . $userinfo->email . '!<br>' . $html;
-	$html = str_replace( 'email', 'banana', $html );
-	return $html;
+function auth0_theme_hook_auth0_verify_email_page($html, $userinfo, $id_token)
+{
+  $html = 'Hi ' . $userinfo->email . '!<br>' . $html;
+  $html = str_replace('email', 'banana', $html);
+  return $html;
 }
+
 //add_filter( 'auth0_verify_email_page', 'auth0_theme_hook_auth0_verify_email_page', 10, 3 );
 
 /**
@@ -87,10 +97,12 @@ function auth0_theme_hook_auth0_verify_email_page ( $html, $userinfo, $id_token 
  *
  * @return string mixed
  */
-function auth0_theme_hook_auth0_get_auto_login_connection( $connection ) {
-	$connection = ! empty( $_GET[ 'connection' ] ) ? sanitize_text_field( $_GET[ 'connection' ] ) : $connection;
-	return $connection;
+function auth0_theme_hook_auth0_get_auto_login_connection($connection)
+{
+  $connection = !empty($_GET['connection']) ? sanitize_text_field($_GET['connection']) : $connection;
+  return $connection;
 }
+
 //add_filter( 'auth0_get_auto_login_connection', 'auth0_theme_hook_auth0_get_auto_login_connection' );
 
 /**
@@ -99,10 +111,12 @@ function auth0_theme_hook_auth0_get_auto_login_connection( $connection ) {
  *
  * @return mixed
  */
-function auth0_theme_hook_wp_auth0_get_option( $value, $key ) {
-	$value = 'bad_key' === $key ? 'That is a bad key and you know it' : $value;
-	return $value;
+function auth0_theme_hook_wp_auth0_get_option($value, $key)
+{
+  $value = 'bad_key' === $key ? 'That is a bad key and you know it' : $value;
+  return $value;
 }
+
 //add_filter( 'wp_auth0_get_option', 'auth0_theme_hook_wp_auth0_get_option', 10, 2 );
 
 /**
@@ -110,10 +124,12 @@ function auth0_theme_hook_wp_auth0_get_option( $value, $key ) {
  *
  * @return WP_User
  */
-function auth0_theme_hook_auth0_migration_ws_authenticated( $user ) {
-	$user->data->display_name = 'Sir ' . $user->data->display_name . ', Esquire';
-	return $user;
+function auth0_theme_hook_auth0_migration_ws_authenticated($user)
+{
+  $user->data->display_name = 'Sir ' . $user->data->display_name . ', Esquire';
+  return $user;
 }
+
 //add_filter( 'auth0_migration_ws_authenticated', 'auth0_theme_hook_auth0_migration_ws_authenticated' );
 
 /**
@@ -122,26 +138,100 @@ function auth0_theme_hook_auth0_migration_ws_authenticated( $user ) {
  *
  * @return bool
  */
-function auth0_theme_hook_wpa0_should_create_user( $should_create, $userinfo ) {
-	$should_create = FALSE === strpos( 'josh', $userinfo->email );
-	return $should_create;
+function auth0_theme_hook_wpa0_should_create_user($should_create, $userinfo)
+{
+  $should_create = FALSE === strpos('josh', $userinfo->email);
+  return $should_create;
 }
+
 //add_filter( 'wpa0_should_create_user', 'auth0_theme_hook_wpa0_should_create_user' );
 
 /**
- * @param string $css, initialized as empty
+ * @param string $css , initialized as empty
  *
  * @return string
  */
-function auth0_theme_hook_auth0_login_css( $css ) {
-	$css .= '
+function auth0_theme_hook_auth0_login_css($css)
+{
+  $css .= '
 		body {background: radial-gradient(#01B48F, #16214D)} 
 		#login h1 {display: none}
 		.login form.auth0-lock-widget {box-shadow: none}
 	';
-	return $css;
+  return $css;
 }
+
 //add_filter( 'auth0_login_css', 'auth0_theme_hook_auth0_login_css' );
+
+/**
+ * Override the Lock login form template
+ *
+ * @param array $lock_options
+ * @param bool $legacy_login
+ *
+ * @return string
+ */
+function auth0_theme_hook_auth0_login_form_tpl($lock_options, $legacy_login)
+{
+  return AUTH0_THEME_ROOT . '/templates/auth0-login-form.php';
+}
+
+//add_filter( 'auth0_login_form_tpl', 'auth0_theme_hook_auth0_login_form_tpl' );
+
+/**
+ * Modify or add to settings fields
+ *
+ * @param array $options - array of options for a specific settings tab
+ * @param string $id - settings tab id
+ *
+ * @return array
+ *
+ * @see WP_Auth0_Admin_Generic::init_option_section()
+ */
+function auth0_theme_hook_auth0_settings_fields($options, $id)
+{
+  switch ($id) {
+    case 'basic':
+      $options[] = array(
+        'name' => __('A Custom Basic Setting'),
+        'opt' => 'custom_basic_opt_name',
+        'id' => 'wpa0_custom_basic_opt_name',
+        'function' => 'auth0_theme_render_custom_basic_opt_name',
+      );
+      break;
+
+    case 'features':
+      break;
+
+    case 'appearance':
+      break;
+
+    case 'advanced':
+      break;
+  }
+  return $options;
+}
+
+//add_filter( 'auth0_settings_fields', 'auth0_theme_hook_auth0_settings_fields', 10, 2 );
+
+/**
+ * Callback for add_settings_field
+ *
+ * @param array $args - 'label_for' = id attr, 'opt_name' = option name
+ *
+ * @see auth0_theme_hook_auth0_settings_fields()
+ */
+function auth0_theme_render_custom_basic_opt_name($args)
+{
+  $options = WP_Auth0_Options::Instance();
+  printf(
+    '<input type="text" name="%s[%s]" id="%s" value="%s">',
+    esc_attr($options->get_options_name()),
+    esc_attr($args['opt_name']),
+    esc_attr($args['label_for']),
+    esc_attr($options->get($args['opt_name']))
+  );
+}
 
 /**
  * Append a cache-breaking parameter to login_url redirects
@@ -151,13 +241,14 @@ function auth0_theme_hook_auth0_login_css( $css ) {
  *
  * @return string
  */
-function auth0_theme_hook_login_url( $login_url, $redirect )  {
-	if ( ! empty( $redirect ) ) {
-		$login_url = remove_query_arg( 'redirect_to', $login_url );
-		$redirect = add_query_arg( 'logged_in', 1, $redirect );
-		$redirect = urlencode( $redirect );
-		$login_url = add_query_arg( 'redirect_to', $redirect, $login_url );
-	}
-	return $login_url;
+function auth0_theme_hook_login_url($login_url, $redirect)
+{
+  if (!empty($redirect)) {
+    $login_url = remove_query_arg('redirect_to', $login_url);
+    $redirect = add_query_arg('logged_in', 1, $redirect);
+    $redirect = urlencode($redirect);
+    $login_url = add_query_arg('redirect_to', $redirect, $login_url);
+  }
+  return $login_url;
 }
 //add_filter( 'login_url', 'auth0_theme_hook_login_url', 10, 2 );
