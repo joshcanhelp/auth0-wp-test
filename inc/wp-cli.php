@@ -8,8 +8,17 @@ if ( WP_CLI ) {
      * @var array
      */
     private $opts = [];
+
+    /**
+     * Have the options been updated yet?
+     *
+     * @var bool
+     */
     private $opts_updated = false;
 
+    /**
+     * Auth0_Cli constructor.
+     */
     public function __construct() {
       $this->opts = get_option( 'wp_auth0_settings' );
     }
@@ -44,6 +53,7 @@ if ( WP_CLI ) {
       if ( $this->opts_updated ) {
         update_option( 'wp_auth0_settings', $this->opts );
         WP_CLI::success( 'Options updated!' );
+        $this->opts_updated = false;
       } else {
         WP_CLI::error( 'Nothing to change' );
       }
