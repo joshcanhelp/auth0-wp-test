@@ -1,5 +1,5 @@
 <?php
-if (WP_DEBUG) {
+if ( WP_DEBUG ) {
 
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
@@ -44,6 +44,7 @@ if (WP_DEBUG) {
   function wp_a0_opts()
   {
     $opts = get_option('wp_auth0_settings');
+    ksort( $opts );
     if (extension_loaded('xdebug')) {
       var_dump($opts);
     } else {

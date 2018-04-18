@@ -32,6 +32,7 @@ define('AUTH0_THEME_ROOT', dirname(__FILE__));
  */
 require 'inc/hooks.php';
 require 'inc/debug.php';
+require 'inc/wp-cli.php';
 
 /**
  * Add theme-specific functionality.
