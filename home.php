@@ -10,8 +10,7 @@
               <p><strong>Note:</strong> You'll need to create the following pages for the test fixtures to display.</p>
               <ul>
                 <?php
-                $slugs = ['settings', 'client', 'user', 'avatars', 'shortcode', 'widget', 'auth-redirect'];
-                foreach ($slugs as $slug) : ?>
+                foreach ( auth0_theme_get_test_page_slugs() as $slug) : ?>
                     <li><a href="<?php echo home_url('auth-zero/test-') . $slug ?>">
                             Test <?php echo implode(' ', array_map('ucfirst', explode('-', $slug))) ?>
                         </a></li>

@@ -1,5 +1,6 @@
 <?php
-if ( WP_CLI ) {
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+
   final class Auth0_Cli {
 
     /**
@@ -76,6 +77,40 @@ if ( WP_CLI ) {
       WP_CLI::line( 'Set `' . $key . '` to ' . $val );
       $this->opts_updated = true;
       return true;
+    }
+
+    /**
+     * Create Auth0 test pages
+     *
+     * @throws \WP_CLI\ExitException
+     */
+    public function make_test_pages() {
+      $parent_id = wp_insert_post( [
+        'post_type' => 'page',
+        'post_title' => 'Auth0 Testing',
+        'post_name' => 'auth-zero',
+        'post_status' => 'publish',
+        'post_author' => 1,
+      ] );
+
+      if ( $parent_id && ! is_wp_error( $parent_id ) ) {
+        foreach ( auth0_theme_get_test_page_slugs() as $slug ) {
+          $page_id = wp_insert_post( [
+            'post_type' => 'page',
+            'post_title' => 'Test ' . ucfirst( $slug ),
+            'post_name' => 'test-' . $slug,
+            'post_status' => 'publish',
+            'post_author' => 1,
+            'post_parent' => $parent_id,
+          ] );
+
+          if ( empty( $page_id ) || is_wp_error( $page_id ) ) {
+            WP_CLI::error( 'Problem creating the child page ' . $slug );
+          }
+        }
+      } else {
+        WP_CLI::error( 'Problem creating the parent page' );
+      }
     }
   }
 

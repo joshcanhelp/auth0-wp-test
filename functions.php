@@ -108,3 +108,12 @@ function auth0_theme_hook_widgets_init()
 }
 
 add_action('widgets_init', 'auth0_theme_hook_widgets_init');
+
+/**
+ * Get test page slugs
+ *
+ * @return array
+ */
+function auth0_theme_get_test_page_slugs() {
+  return ['settings', 'client', 'user', 'avatars', 'shortcode', 'widget', 'auth-redirect'];
+}
