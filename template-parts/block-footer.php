@@ -152,7 +152,7 @@
 </footer>
 
 <!-- START of wp_footer() -->
-<?php wp_footer(); ?>
+<?php wp_footer() ?>
 <!-- END of wp_footer() -->
 
 </body>
