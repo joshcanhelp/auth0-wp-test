@@ -19,7 +19,7 @@ the_post();
 	<?php get_template_part( 'template-parts/block', 'test-tpl-header' ); ?>
 
 		<div class="the-content">
-			<p>If this works properly, you should be redirected back to this page after successful login.</p>
+
 		<?php get_template_part( 'template-parts/block', 'lock-mods' ); ?>
 		<?php
 		$shortcode = '[auth0';
