@@ -1,27 +1,27 @@
 body {
-    background: #F5F7F9;
+	background: #F5F7F9;
 }
 
 article {
-    max-width: 800px;
-    margin: 3em auto;
-    padding: 3em 4%;
-    background: white;
+	max-width: 800px;
+	margin: 3em auto;
+	padding: 3em 4%;
+	background: white;
 }
 
 pre {
-    padding: 1em;
+	padding: 1em;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 img.avatar {
-    border: 4px solid #EACA2C
+	border: 4px solid #EACA2C
 }
 
 img.avatar-auth0 {
-    border-color: #EB5424
+	border-color: #EB5424
 }

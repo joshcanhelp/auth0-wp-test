@@ -1,20 +1,24 @@
+/*
+Login page modification samples
+
 body {
-    background: radial-gradient(#44C7F4, #16214D);
+	background: radial-gradient(#FCE89C, #f9a602);
 }
 
 #login h1 {
-    display: none;
+	display: none;
 }
 
 #login #backtoblog a,
 #extra-options a {
-    color: white;
+	color: white;
 }
 
 .auth0-lock {
-    border-radius: 5px;
+	border-radius: 5px;
 }
 
 .login form.auth0-lock-widget {
-    box-shadow: 0 0 40px 4px #111118;
+	box-shadow: 0 0 40px 4px #111118;
 }
+*/
