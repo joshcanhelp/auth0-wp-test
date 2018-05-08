@@ -33,7 +33,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
       }
 
       // Command like: `wp auth0 set_opt domain tenant.auth0.com`
-      if ( ! empty( $args[0] ) && ! empty( $args[1] ) ) {
+      if ( isset( $args[0] ) && isset( $args[1] ) ) {
         $this->do_set_opt( $args[0], $args[1] );
       }
 
