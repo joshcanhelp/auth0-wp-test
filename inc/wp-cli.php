@@ -3,26 +3,11 @@
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
   final class Auth0_Cli {
 
-
-    /**
-     * Options loaded from the DB
-     *
-     * @var array
-     */
-    private $opts = [];
-    /**
-     * Have the options been updated yet?
-     *
-     * @var bool
-     */
-    private $opts_updated = false;
-
     /**
      * Auth0_Cli constructor.
      */
     public function __construct() {
-
-      $this->opts = get_option( 'wp_auth0_settings' );
+      $this->opts = new WP_Auth0_Options();
     }
 
     /**
@@ -34,14 +19,15 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
      * @throws \WP_CLI\ExitException
      */
     public function set_opt( $args = [], $assoc_args = [] ) {
-
       if ( empty( $args ) && empty( $assoc_args ) ) {
         WP_CLI::error( 'No arguments to process' );
       }
+
       // Command like: `wp auth0 set_opt domain tenant.auth0.com`
       if ( ! empty( $args[0] ) && ! empty( $args[1] ) ) {
         $this->do_set_opt( $args[0], $args[1] );
       }
+
       // Command like: `wp auth0 set_opt --domain="tenant.auth0.com" --client_id="AUTH0_CLIENT_ID"`
       if ( ! empty( $assoc_args ) ) {
         foreach ( $assoc_args as $key => $val ) {
@@ -50,13 +36,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
           }
         }
       }
-      if ( $this->opts_updated ) {
-        update_option( 'wp_auth0_settings', $this->opts );
-        WP_CLI::success( 'Options updated!' );
-        $this->opts_updated = false;
-      } else {
-        WP_CLI::error( 'Nothing to change' );
-      }
+      WP_CLI::success( 'Options updated!' );
     }
 
     /**
@@ -68,16 +48,8 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
      * @return bool
      */
     private function do_set_opt( $key, $val ) {
-
-      if ( ! array_key_exists( $key, $this->opts ) ) {
-        WP_CLI::line( 'Option `' . $key . '` does not exist ... skipping' );
-
-        return false;
-      }
-      $this->opts[ $key ] = $val;
+      $this->opts->set( $key, $val );
       WP_CLI::line( 'Set `' . $key . '` to ' . $val );
-      $this->opts_updated = true;
-
       return true;
     }
 
@@ -145,14 +117,14 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
         return;
       }
 
-      $app_token = $this->opts[ 'auth0_app_token' ];
+      $app_token = $this->opts->get( 'auth0_app_token' );
 
       if ( ! $app_token ) {
         WP_CLI::error( 'WP user deleted, no app token to delete existing Auth0 user' );
       }
 
       $resp = wp_remote_request(
-        'https://' . $this->opts[ 'domain' ] . '/api/v2/users/' . $auth0_id,
+        'https://' . $this->opts->get( 'domain' ) . '/api/v2/users/' . $auth0_id,
         [
           'method' => 'DELETE',
           'headers' => [

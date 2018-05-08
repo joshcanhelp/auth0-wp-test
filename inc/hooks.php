@@ -221,11 +221,11 @@ function auth0_theme_render_custom_basic_opt_name( $args ) {
 	);
 }
 
-function auth0_theme_hook_auth0_auth_token_scope( $scope ) {
+function auth0_theme_hook_auth0_auth_scope( $scope ) {
 	$scope[] = 'offline_access';
 	return $scope;
 }
-// add_filter( 'auth0_auth_token_scope', 'auth0_theme_hook_auth0_auth_token_scope' );
+// add_filter( 'auth0_auth_scope', 'auth0_theme_hook_auth0_auth_scope' );
 /*
  *
  * Other fun stuff!
