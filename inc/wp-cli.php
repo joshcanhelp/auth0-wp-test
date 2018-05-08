@@ -3,11 +3,20 @@
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
   final class Auth0_Cli {
 
+    private $opts;
+
     /**
      * Auth0_Cli constructor.
      */
     public function __construct() {
       $this->opts = new WP_Auth0_Options();
+    }
+
+    /**
+     * Show all options
+     */
+    public function get_opts() {
+      echo '<pre>' . print_r( $this->opts->get_options(), TRUE ) . '</pre>';
     }
 
     /**
@@ -31,9 +40,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
       // Command like: `wp auth0 set_opt --domain="tenant.auth0.com" --client_id="AUTH0_CLIENT_ID"`
       if ( ! empty( $assoc_args ) ) {
         foreach ( $assoc_args as $key => $val ) {
-          if ( ! $this->do_set_opt( $key, $val ) ) {
-            continue;
-          }
+          $this->do_set_opt( $key, $val );
         }
       }
       WP_CLI::success( 'Options updated!' );
