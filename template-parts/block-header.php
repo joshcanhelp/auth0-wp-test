@@ -34,7 +34,7 @@
 			<a class="btn btn-primary btn-sm" href="<?php echo wp_login_url(); ?>?wle">Login Override</a>&nbsp;
 	<?php endif ?>
 	</p>
-    <?php if ( is_user_logged_in() ) : ?>
+    <?php if ( is_user_logged_in() && function_exists( 'get_currentauth0user' ) ) : ?>
         <p><code><?php echo get_currentauth0user()->auth0_id; ?></code></p>
     <?php endif; ?>
 </header>
