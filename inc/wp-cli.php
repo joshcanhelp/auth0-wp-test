@@ -3,20 +3,25 @@
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
   final class Auth0_Cli {
 
-    private $opts;
+    const AUTH0_OPT_NAME = 'wp_auth0_settings';
+
+    /**
+     * @var array
+     */
+    private $opts = [];
 
     /**
      * Auth0_Cli constructor.
      */
     public function __construct() {
-      $this->opts = new WP_Auth0_Options();
+      $this->opts = (array) get_option( self::AUTH0_OPT_NAME );
     }
 
     /**
      * Show all options
      */
     public function get_opts() {
-      echo '<pre>' . print_r( $this->opts->get_options(), TRUE ) . '</pre>';
+      echo '<pre>' . print_r( $this->opts, TRUE ) . '</pre>';
     }
 
     /**
@@ -51,13 +56,15 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
      *
      * @param string          $key - option key to set.
      * @param bool|string|int $val - value to change the key to.
-     *
-     * @return bool
      */
     private function do_set_opt( $key, $val ) {
-      $this->opts->set( $key, $val );
-      WP_CLI::line( 'Set `' . $key . '` to ' . $val );
-      return true;
+      if ( array_key_exists( $key, $this->opts ) ) {
+        $this->opts[ $key ] = $val;
+        update_option( self::AUTH0_OPT_NAME, $this->opts );
+        WP_CLI::line( '✔︎ Set `' . $key . '` to ' . $val );
+      } else {
+        WP_CLI::line( '✘ Option `' . $key . '` not found' );
+      }
     }
 
     /**
@@ -124,14 +131,14 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
         return;
       }
 
-      $app_token = $this->opts->get( 'auth0_app_token' );
+      $app_token = $this->opts['auth0_app_token'];
 
       if ( ! $app_token ) {
         WP_CLI::error( 'WP user deleted, no app token to delete existing Auth0 user' );
       }
 
       $resp = wp_remote_request(
-        'https://' . $this->opts->get( 'domain' ) . '/api/v2/users/' . $auth0_id,
+        'https://' . $this->opts['domain'] . '/api/v2/users/' . $auth0_id,
         [
           'method' => 'DELETE',
           'headers' => [
