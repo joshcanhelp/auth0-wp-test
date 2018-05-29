@@ -96,6 +96,17 @@ if ( WP_DEBUG ) {
 		die();
 	}
 
+	function wp_a0_jwks_fetch_test() {
+		echo 'Pre-delete: <br>';
+		echo '<pre>' . print_r( get_transient( 'WP_Auth0_JWKS_cache' ), TRUE ) . '</pre>';
+		WP_Auth0_Api_Client::JWKfetch( WP_Auth0_Options::Instance()->get('domain') );
+		echo 'Post-fetch: ';
+		echo '<pre>' . print_r( get_transient( 'WP_Auth0_JWKS_cache' ), TRUE ) . '</pre>';
+	}
+
+	/**
+	 * Catch a new CDN link update
+	 */
 	add_action(
 		'init', function () {
 
