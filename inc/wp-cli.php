@@ -162,18 +162,18 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 * @throws \WP_CLI\ExitException
 		 */
 		public function delete_client() {
-			$client_id = $this->opts['client_id'];
-			$app_token = $this->opts['auth0_app_token'];
-
-			if ( ! $client_id ) {
+			if ( empty( $this->opts['client_id'] ) ) {
 				WP_CLI::error( 'No Client ID for this site' );
 				return;
 			}
 
-			if ( ! $app_token ) {
+			if ( empty( $this->opts['auth0_app_token'] ) ) {
 				WP_CLI::error( 'No API token for this site' );
 				return;
 			}
+
+			$client_id = $this->opts['client_id'];
+			$app_token = $this->opts['auth0_app_token'];
 
 			$resp = wp_remote_request(
 				'https://' . $this->opts['domain'] . '/api/v2/clients/' . $client_id,

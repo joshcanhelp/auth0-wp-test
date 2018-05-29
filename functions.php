@@ -128,7 +128,6 @@ function auth0_theme_get_lock_mod_opts() {
 		'modal_trigger_name',
 		'redirect_to',
 		'show_as_modal',
-		'show_icon',
 		'social_big_buttons',
 	];
 }
