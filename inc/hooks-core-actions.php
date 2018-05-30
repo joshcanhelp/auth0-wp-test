@@ -20,6 +20,7 @@ function auth0_theme_hook_auth0_before_login( $user ) {
 	wp_die( 'Login process started!' );
 }
 // add_action( 'auth0_before_login', 'auth0_theme_hook_auth0_before_login', 10, 1 );
+
 /**
  * Stop the login process after WP login.
  * NOTE: The example below will break the user login process.
@@ -43,6 +44,7 @@ function auth0_theme_hook_auth0_user_login( $user_id, $userinfo, $is_new, $id_to
 	wp_die( 'Login successful! <a href="' . home_url() . '">Home</a>' );
 }
 // add_action( 'auth0_user_login', 'auth0_theme_hook_auth0_user_login', 10, 6 );
+
 /**
  * Stop the login process after a new user has been created.
  * NOTE: The example below will break the user login process.

@@ -23,6 +23,7 @@ function auth0_theme_hook_auth0_get_wp_user( $user, $userinfo ) {
 	return $user;
 }
 // add_filter( 'auth0_get_wp_user', 'auth0_theme_hook_auth0_get_wp_user', 1, 2 );
+
 /**
  * Filter the HTML used on the email verification wp_die page.
  *
@@ -40,6 +41,7 @@ function auth0_theme_hook_auth0_verify_email_page( $html, $userinfo, $id_token )
 	return $html;
 }
 // add_filter( 'auth0_verify_email_page', 'auth0_theme_hook_auth0_verify_email_page', 10, 3 );
+
 /**
  * Filter the auto-login connection used by looking for a URL parameter.
  *
@@ -51,9 +53,12 @@ function auth0_theme_hook_auth0_get_auto_login_connection( $connection ) {
 	return ! empty( $_GET['connection'] ) ? rawurlencode( $_GET['connection'] ) : $connection;
 }
 // add_filter( 'auth0_get_auto_login_connection', 'auth0_theme_hook_auth0_get_auto_login_connection' );
+
 /**
- * @param mixed  $value - value of the option, initially pulled from the database
- * @param string $key   - key of the settings array
+ * Adjust an options value before use.
+ *
+ * @param mixed  $value - value of the option, initially pulled from the database.
+ * @param string $key   - key of the settings array.
  *
  * @return mixed
  */
@@ -62,6 +67,7 @@ function auth0_theme_hook_wp_auth0_get_option( $value, $key ) {
 	return $value;
 }
 // add_filter( 'wp_auth0_get_option', 'auth0_theme_hook_wp_auth0_get_option', 10, 2 );
+
 /**
  * Filter the WP user object before sending back to Auth0 during migration.
  *
@@ -74,7 +80,10 @@ function auth0_theme_hook_auth0_migration_ws_authenticated( $user ) {
 	return $user;
 }
 // add_filter( 'auth0_migration_ws_authenticated', 'auth0_theme_hook_auth0_migration_ws_authenticated' );
+
 /**
+ * Should a new user be created?
+ *
  * @param bool     $should_create - should the user be created, initialized as TRUE
  * @param stdClass $userinfo      - Auth0 user information
  *
@@ -85,8 +94,11 @@ function auth0_theme_hook_wpa0_should_create_user( $should_create, $userinfo ) {
 	return $should_create;
 }
 // add_filter( 'wpa0_should_create_user', 'auth0_theme_hook_wpa0_should_create_user' );
+
 /**
- * @param string $css , initialized as empty
+ * Add CSS to the Auth0 login form.
+ *
+ * @param string $css - initialized as empty.
  *
  * @return string
  */
@@ -99,6 +111,7 @@ function auth0_theme_hook_auth0_login_css( $css ) {
 	return $css;
 }
 // add_filter( 'auth0_login_css', 'auth0_theme_hook_auth0_login_css' );
+
 /**
  * Override the Lock login form template.
  *
@@ -112,6 +125,7 @@ function auth0_theme_hook_auth0_login_form_tpl( $tpl_path, $lock_options, $show_
 	return AUTH0_THEME_ROOT . '/templates/auth0-login-form.html';
 }
 // add_filter( 'auth0_login_form_tpl', 'auth0_theme_hook_auth0_login_form_tpl', 10, 3 );
+
 /**
  * Modify existing or add new settings fields.
  *
@@ -142,6 +156,7 @@ function auth0_theme_hook_auth0_settings_fields( $options, $id ) {
 	return $options;
 }
 // add_filter( 'auth0_settings_fields', 'auth0_theme_hook_auth0_settings_fields', 10, 2 );
+
 /**
  * Callback for add_settings_field
  *

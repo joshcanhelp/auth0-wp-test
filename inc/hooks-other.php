@@ -27,6 +27,7 @@ function auth0_theme_hook_login_url( $login_url, $redirect ) {
 	return $login_url;
 }
 // add_filter( 'login_url', 'auth0_theme_hook_login_url', 10, 2 );
+
 /**
  * Adds an Auth0 user when a new customer is created in WooCommerce.
  * Make sure to change $payload['connection'] to the database connection you're using.
