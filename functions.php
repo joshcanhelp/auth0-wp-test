@@ -12,9 +12,12 @@
  */
 
 if ( WP_DEBUG ) {
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
+	// phpcs:ignore
+	ini_set( 'display_errors', 1 );
+	// phpcs:ignore
+	ini_set( 'display_startup_errors', 1 );
+	// phpcs:ignore
+	error_reporting( E_ALL );
 }
 
 /**
@@ -32,7 +35,9 @@ define( 'AUTH0_THEME_ROOT', dirname( __FILE__ ) );
 /**
  * Sample actions and filters ... activate and have fun!
  */
-require 'inc/hooks.php';
+require 'inc/hooks-other.php';
+require 'inc/hooks-core-actions.php';
+require 'inc/hooks-core-filters.php';
 require 'inc/debug.php';
 require 'inc/wp-cli.php';
 
@@ -112,7 +117,7 @@ function auth0_theme_get_test_page_slugs() {
 }
 
 /**
- * Get Lock modification options for shortcode and widget
+ * Get Lock modification options for shortcodes and widgets
  *
  * @return array
  */

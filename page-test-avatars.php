@@ -15,16 +15,13 @@ get_template_part( 'template-parts/block', 'header' );
 the_post();
 ?>
 
-	<article>
+<article>
 	<?php get_template_part( 'template-parts/block', 'test-tpl-header' ); ?>
-
-		<div class="the-content">
-			<p>Tests avatar overrides. A yellow border means no Auth0 information for the user so no Auth0 avatar;
-				a red border means an Auth0 avatar is being used.</p>
-		</div>
-
+	<div class="the-content">
+		<p>Tests avatar overrides. A yellow border means no Auth0 information for the user so no Auth0 avatar;
+			a red border means an Auth0 avatar is being used.</p>
+	</div>
 	<?php
-
 	$post_q = new WP_Query(
 		[
 			'post_type'           => 'post',
@@ -37,10 +34,10 @@ the_post();
 			$post_q->the_post();
 			printf(
 				'<h4>Post used: <a href="%s">%s</a> [<a href="%s%d">edit</a>]</h4>',
-				get_permalink(),
-				get_the_title(),
-				admin_url( 'post.php?action=edit&post=' ),
-				get_the_ID()
+				esc_url( get_permalink() ),
+				esc_html( get_the_title() ),
+				esc_url( admin_url( 'post.php?action=edit&post=' ) ),
+				absint( get_the_ID() )
 			);
 			$this_author = $post->post_author;
 			$avatar_size = 80;
@@ -66,8 +63,8 @@ the_post();
 				get_avatar( $post, $avatar_size ),
 				get_avatar( new WP_User( $this_author ), $avatar_size ),
 				$a_comment
-				? get_avatar( $a_comment, $avatar_size ) . ' - Avatar from <code>WP_Comment</code> object'
-				: 'Add a comment to test comment avatars'
+					? get_avatar( $a_comment, $avatar_size ) . ' - Avatar from <code>WP_Comment</code> object'
+					: 'Add a comment to test comment avatars'
 			);
 		}
 	} else {
@@ -76,6 +73,6 @@ the_post();
 		);
 	}
 	?>
-	</article>
+</article>
 
 <?php get_template_part( 'template-parts/block', 'footer' ); ?>

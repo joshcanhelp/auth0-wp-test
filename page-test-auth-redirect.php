@@ -24,11 +24,11 @@ the_post();
 	<?php get_template_part( 'template-parts/block', 'test-tpl-header' ); ?>
 
 		<div class="the-content">
-            <?php if ( ! is_user_logged_in() ) : ?>
-                <p>If you see this, something is wrong ...</p>
-            <?php else : ?>
-                <p>If you see this, you should be logged in.</p>
-            <?php endif; ?>
+			<?php if ( ! is_user_logged_in() ) : ?>
+				<p>If you see this, something is wrong ...</p>
+			<?php else : ?>
+				<p>If you see this, you should be logged in.</p>
+			<?php endif; ?>
 			<p>If you see this, it worked!</p>
 		</div>
 

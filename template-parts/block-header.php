@@ -15,14 +15,14 @@
 <header class="jumbotron">
 	<p><?php bloginfo( 'name' ); ?></p>
 	<p>
-        <a href="<?php echo home_url(); ?>">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo-grey.png" alt="Auth0" width="200">
-        </a>
-    </p>
+		<a href="<?php echo home_url(); ?>">
+			<img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo-grey.png" alt="Auth0" width="200">
+		</a>
+	</p>
 	<p>
 	<?php if ( is_user_logged_in() ) : ?>
 			<a class="btn btn-primary btn-sm" href="<?php echo get_edit_profile_url(); ?>">Profile</a>&nbsp;
-			<a class="btn btn-primary btn-sm" href="<?php echo home_url('auth-zero/test-user'); ?>">Test User</a>&nbsp;
+			<a class="btn btn-primary btn-sm" href="<?php echo home_url( 'auth-zero/test-user' ); ?>">Test User</a>&nbsp;
 			<a class="btn btn-primary btn-sm" href="<?php echo wp_logout_url(); ?>">Logout</a>&nbsp;
 	<?php if ( current_user_can( 'manage_options' ) ) : ?>
 				<a class="btn btn-success btn-sm" href="<?php echo admin_url( 'admin.php?page=wpa0' ); ?>">Settings</a>&nbsp;
@@ -34,7 +34,7 @@
 			<a class="btn btn-primary btn-sm" href="<?php echo wp_login_url(); ?>?wle">Login Override</a>&nbsp;
 	<?php endif ?>
 	</p>
-    <?php if ( is_user_logged_in() && function_exists( 'get_currentauth0user' ) ) : ?>
-        <p><code><?php echo get_currentauth0user()->auth0_id; ?></code></p>
-    <?php endif; ?>
+	<?php if ( is_user_logged_in() && function_exists( 'get_currentauth0user' ) ) : ?>
+		<p><code><?php echo get_currentauth0user()->auth0_id; ?></code></p>
+	<?php endif; ?>
 </header>

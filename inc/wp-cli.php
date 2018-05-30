@@ -21,7 +21,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 * Show all options
 		 */
 		public function get_opts() {
-			echo '<pre>' . print_r( $this->opts, TRUE ) . '</pre>';
+			echo '<pre>' . print_r( $this->opts, true ) . '</pre>';
 		}
 
 		/**
@@ -140,10 +140,10 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			$resp = wp_remote_request(
 				'https://' . $this->opts['domain'] . '/api/v2/users/' . $auth0_id,
 				[
-					'method' => 'DELETE',
+					'method'  => 'DELETE',
 					'headers' => [
-						'Authorization' => 'Bearer ' . $app_token
-					]
+						'Authorization' => 'Bearer ' . $app_token,
+					],
 				]
 			);
 
@@ -178,10 +178,10 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			$resp = wp_remote_request(
 				'https://' . $this->opts['domain'] . '/api/v2/clients/' . $client_id,
 				[
-					'method' => 'DELETE',
+					'method'  => 'DELETE',
 					'headers' => [
-						'Authorization' => 'Bearer ' . $app_token
-					]
+						'Authorization' => 'Bearer ' . $app_token,
+					],
 				]
 			);
 
