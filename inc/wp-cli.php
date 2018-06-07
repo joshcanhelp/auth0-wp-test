@@ -70,9 +70,15 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		/**
 		 * Create Auth0 test pages
 		 *
+		 * @param array $args - CLI parameters
+		 *
 		 * @throws \WP_CLI\ExitException
 		 */
-		public function make_test_pages() {
+		public function make_test_pages($args = []) {
+
+			if ( isset( $args[0] ) ) {
+				switch_to_blog( absint( $args[0] ) );
+			}
 
 			$parent_id = wp_insert_post(
 				[

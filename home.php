@@ -21,4 +21,8 @@
 			</div>
 	<?php endif; ?>
 	</article>
+
+	<article>
+		<?php dynamic_sidebar() ?>
+	</article>
 <?php get_template_part( 'template-parts/block', 'footer' ); ?>

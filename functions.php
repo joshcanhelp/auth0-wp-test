@@ -42,15 +42,41 @@ require 'inc/debug.php';
 require 'inc/wp-cli.php';
 
 /**
+ * Init hook actions for the theme.
+ * Actions/filters that go here instead of the after_theme_setup hook might be:
+ *
+ * - Actions that override ones in a particular plugin
+ * - Actions that need to run after plugin init actions
+ */
+function auth0_theme_hook_init() {
+  // Allow excepts and post thumbnails on pages.
+  add_post_type_support( 'page', array( 'excerpt', 'thumbnail' ) );
+}
+add_action( 'init', 'auth0_theme_hook_init', 100 );
+
+/**
  * Add theme-specific functionality.
  *
- * @see http://codex.wordpress.org/Plugin_API/Action_Reference
- * @see http://codex.wordpress.org/Plugin_API/Action_Reference/after_setup_theme
- * @see https://codex.wordpress.org/Function_Reference/add_theme_support#Addable_Features
+ * "This is the first action hook available to themes, triggered immediately after the active theme's
+ * functions.php file is loaded."
+ *
+ * @link http://codex.wordpress.org/Plugin_API/Action_Reference
+ *
+ * "This hook is called during each page load, after the theme is initialized.
+ * It is generally used to perform basic setup and registration actions for a theme."
+ *
+ * @link http://codex.wordpress.org/Plugin_API/Action_Reference/after_setup_theme
+ *
+ * @link https://codex.wordpress.org/Function_Reference/add_theme_support#more-information
  */
 function auth0_theme_hook_after_setup_theme() {
+  // Let WordPress manage the meta title tag.
 	add_theme_support( 'title-tag' );
+
+	// Support thumbnails.
 	add_theme_support( 'post-thumbnails' );
+
+	// HTML5 everywhere.
 	add_theme_support(
 		'html5', array(
 			'search-form',
@@ -60,7 +86,6 @@ function auth0_theme_hook_after_setup_theme() {
 			'caption',
 		)
 	);
-	remove_action( 'wp_head', 'wp_generator' );
 }
 add_action( 'after_setup_theme', 'auth0_theme_hook_after_setup_theme' );
 

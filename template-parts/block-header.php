@@ -23,7 +23,7 @@
 	<?php if ( is_user_logged_in() ) : ?>
 			<a class="btn btn-primary btn-sm" href="<?php echo get_edit_profile_url(); ?>">Profile</a>&nbsp;
 			<a class="btn btn-primary btn-sm" href="<?php echo home_url( 'auth-zero/test-user' ); ?>">Test User</a>&nbsp;
-			<a class="btn btn-primary btn-sm" href="<?php echo wp_logout_url(); ?>">Logout</a>&nbsp;
+			<a class="btn btn-primary btn-sm" href="<?php echo wp_logout_url( get_the_ID() ? get_permalink() : '' ); ?>">Logout</a>&nbsp;
 	<?php if ( current_user_can( 'manage_options' ) ) : ?>
 				<a class="btn btn-success btn-sm" href="<?php echo admin_url( 'admin.php?page=wpa0' ); ?>">Settings</a>&nbsp;
 				<a class="btn btn-success btn-sm"
