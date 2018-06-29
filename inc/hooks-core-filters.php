@@ -189,3 +189,16 @@ function auth0_theme_hook_auth0_auth_scope( $scopes ) {
 	return $scopes;
 }
 // add_filter( 'auth0_auth_scope', 'auth0_theme_hook_auth0_auth_scope' );
+
+/**
+ * Prefix state and nonce cookie names.
+ *
+ * @param string $cookie_name - Cookie name to modify.
+ *
+ * @return string
+ */
+function auth0_theme_hook_prefix_cookie_name( $cookie_name ) {
+	return 'STYXKEY_' . $cookie_name;
+}
+// add_filter( 'auth0_state_cookie_name', 'auth0_theme_hook_prefix_cookie_name' );
+// add_filter( 'auth0_nonce_cookie_name', 'auth0_theme_hook_prefix_cookie_name' );

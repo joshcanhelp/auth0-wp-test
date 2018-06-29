@@ -39,16 +39,23 @@ if ( WP_DEBUG ) {
 	}
 
 	/**
-	 * Output all options
+	 * @param bool $output_db
 	 */
-	function wp_a0_opts() {
-
-		$opts = get_option( 'wp_auth0_settings' );
+	function wp_a0_opts( $output_db = false ) {
+		$opts = WP_Auth0_Options::Instance()->get_options();
 		ksort( $opts );
+		$db_opts = get_option( 'wp_auth0_settings' );
+		ksort( $db_opts );
 		if ( extension_loaded( 'xdebug' ) ) {
 			var_dump( $opts );
+			if ( $output_db ) {
+				var_dump( $db_opts );
+			}
 		} else {
 			wp_a0_arr_dump( $opts );
+			if ( $output_db ) {
+				wp_a0_arr_dump( $db_opts );
+			}
 		}
 	}
 
@@ -69,10 +76,7 @@ if ( WP_DEBUG ) {
 	 * wp_a0_set_opt( 'passwordless_cdn_url', '//wp.localhost.test/lock.11.3.min.js' );
 	 */
 	function wp_a0_set_opt( $key, $val ) {
-
-		$opts         = get_option( 'wp_auth0_settings' );
-		$opts[ $key ] = $val;
-		update_option( 'wp_auth0_settings', $opts );
+		WP_Auth0_Options::Instance()->set( $key, $val );
 	}
 
 	/**
