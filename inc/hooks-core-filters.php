@@ -218,4 +218,4 @@ function auth0_theme_hook_settings_constant_prefix( $prefix ) {
 	// Prefix the prefix.
 	return 'PREFIX_' . $prefix;
 }
-// add_filter( 'wp_auth0_settings_constant_prefix', 'auth0_theme_hook_settings_constant_prefix' );
+// add_filter( 'auth0_settings_constant_prefix', 'auth0_theme_hook_settings_constant_prefix' );
