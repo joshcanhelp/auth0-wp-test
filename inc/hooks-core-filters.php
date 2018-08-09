@@ -202,3 +202,20 @@ function auth0_theme_hook_prefix_cookie_name( $cookie_name ) {
 }
 // add_filter( 'auth0_state_cookie_name', 'auth0_theme_hook_prefix_cookie_name' );
 // add_filter( 'auth0_nonce_cookie_name', 'auth0_theme_hook_prefix_cookie_name' );
+
+/**
+ * Prefix used for constant-based options.
+ * NOTE: This must load before WP_Auth0::init() so it cannot be used in a theme.
+ *
+ * @param string $prefix - Constant prefix to modify.
+ *
+ * @return string
+ */
+function auth0_theme_hook_settings_constant_prefix( $prefix ) {
+	// Replace the prefix with something else.
+	// return 'AUTH_ENV_';
+
+	// Prefix the prefix.
+	return 'PREFIX_' . $prefix;
+}
+// add_filter( 'wp_auth0_settings_constant_prefix', 'auth0_theme_hook_settings_constant_prefix' );

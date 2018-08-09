@@ -94,12 +94,26 @@ add_action( 'after_setup_theme', 'auth0_theme_hook_after_setup_theme' );
  *
  * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
  */
-function auth0_theme_wp_enqueue_scripts() {
+function auth0_theme_hook_wp_enqueue_scripts() {
 	wp_enqueue_style( 'auth0-core', '//cdn.auth0.com/styleguide/core/2.0.5/core.min.css' );
 	wp_enqueue_style( 'auth0-comp', '//cdn.auth0.com/styleguide/components/2.0.0/components.min.css' );
 	wp_enqueue_style( 'auth0-test', get_stylesheet_directory_uri() . '/assets/css/main.css' );
+	wp_enqueue_script( 'jquery' );
 }
-add_action( 'wp_enqueue_scripts', 'auth0_theme_wp_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'auth0_theme_hook_wp_enqueue_scripts' );
+
+/**
+ * Queuing up JS for the login form.
+ *
+ * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
+ */
+function auth0_theme_hook_login_enqueue_scripts() {
+	wp_enqueue_script( 'lock-ui-mods', get_stylesheet_directory_uri() . '/assets/js/lock-form-ui.js', ['jquery'], '1.2.3', true );
+	?>
+	<script src="<?php echo get_stylesheet_directory_uri() . '/assets/js/lock-form-ui.js' ?>"></script>
+	<?php
+}
+//add_action( 'login_footer', 'auth0_theme_hook_login_enqueue_scripts', 1000000 );
 
 /**
  * Queuing up CSS for wp-login.
