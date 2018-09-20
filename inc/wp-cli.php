@@ -14,7 +14,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 * Auth0_Cli constructor.
 		 */
 		public function __construct() {
-			$this->opts = (array) get_option( self::AUTH0_OPT_NAME );
+			$this->opts = WP_Auth0_Options::Instance()->get_options();
 		}
 
 		/**

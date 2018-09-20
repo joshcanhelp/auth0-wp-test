@@ -219,3 +219,48 @@ function auth0_theme_hook_settings_constant_prefix( $prefix ) {
 	return 'PREFIX_' . $prefix;
 }
 // add_filter( 'auth0_settings_constant_prefix', 'auth0_theme_hook_settings_constant_prefix' );
+
+/**
+ * Adjust the authorize URL parameters used for auto-login and universal login page.
+ *
+ * @param array $params - Existing URL parameters.
+ * @param string $connection - Connection for auto-login, optional.
+ * @param string $redirect_to - URL to redirect to after logging in.
+ *
+ * @return mixed
+ */
+function auth0_theme_hook_authorize_url_params( $params, $connection, $redirect_to ) {
+	if ( 'twitter' === $connection ) {
+		$params[ 'param1' ] = 'value1';
+	}
+
+	if ( FALSE !== strpos( 'twitter', $redirect_to ) ) {
+		$params[ 'param2' ] = 'value2';
+	}
+
+	return $params;
+}
+//add_filter( 'auth0_authorize_url_params', 'auth0_theme_hook_authorize_url_params', 10, 3 );
+
+/**
+ * Adjust the authorize URL parameters used for auto-login and universal login page.
+ *
+ * @param string $auth_url - Built authorize URL.
+ * @param array $auth_params - Existing URL parameters.
+ *
+ * @return mixed
+ */
+function auth0_theme_hook_authorize_url( $auth_url, $auth_params ) {
+
+	if ( 'twitter' === $auth_params['connection'] ) {
+		$auth_url .= '&param1=value1';
+	}
+
+	if ( ! empty( $auth_params['display'] ) ) {
+		$auth_url .= '&param2=value2';
+	}
+
+	$auth_url .= '&param3=value3';
+	return $auth_url;
+}
+//add_filter( 'auth0_authorize_url', 'auth0_theme_hook_authorize_url', 10, 3 );
