@@ -6,6 +6,11 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		const AUTH0_OPT_NAME = 'wp_auth0_settings';
 
 		/**
+		 * @var WP_Auth0_Options
+		 */
+		private $opts_obj;
+
+		/**
 		 * @var array
 		 */
 		private $opts = [];
@@ -14,7 +19,8 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 * Auth0_Cli constructor.
 		 */
 		public function __construct() {
-			$this->opts = WP_Auth0_Options::Instance()->get_options();
+			$this->opts_obj = WP_Auth0_Options::Instance();
+			$this->opts = $this->opts_obj->get_options();
 		}
 
 		/**
@@ -137,9 +143,10 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				return;
 			}
 
-			$app_token = $this->opts['auth0_app_token'];
+			$client_credentials      = new WP_Auth0_Api_Client_Credentials( $this->opts_obj );
+			$api_token         = $client_credentials->call();
 
-			if ( ! $app_token ) {
+			if ( ! $api_token ) {
 				WP_CLI::error( 'WP user deleted, no app token to delete existing Auth0 user' );
 			}
 
@@ -148,7 +155,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				[
 					'method'  => 'DELETE',
 					'headers' => [
-						'Authorization' => 'Bearer ' . $app_token,
+						'Authorization' => 'Bearer ' . $api_token,
 					],
 				]
 			);
