@@ -1,5 +1,3 @@
-## includes
-
 This directory contains hook samples, WP-CLI recipes, and debugging code that you might find useful in your plugin or theme. 
 
 ### Hooks 
