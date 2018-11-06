@@ -92,10 +92,13 @@ if ( WP_DEBUG ) {
 		echo $secret . '<hr>';
 		echo '<pre>' . print_r(
 			JWT::decode(
-				$token, $opts->get_client_secret_as_key(), array(
+				$token,
+				$opts->get_client_secret_as_key(),
+				array(
 					$opts->get_client_signing_algorithm(),
 				)
-			), true
+			),
+			true
 		) . '</pre>';
 		die();
 	}
@@ -112,7 +115,8 @@ if ( WP_DEBUG ) {
 	 * Catch a new CDN link update
 	 */
 	add_action(
-		'init', function () {
+		'init',
+		function () {
 
 			// Auto-update the CDN URL
 			if ( isset( $_GET['update_cdn'] ) ) {

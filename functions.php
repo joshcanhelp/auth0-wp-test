@@ -12,11 +12,8 @@
  */
 
 if ( WP_DEBUG ) {
-	// phpcs:ignore
 	ini_set( 'display_errors', 1 );
-	// phpcs:ignore
 	ini_set( 'display_startup_errors', 1 );
-	// phpcs:ignore
 	error_reporting( E_ALL );
 }
 
@@ -30,7 +27,7 @@ if ( ! function_exists( 'add_action' ) ) {
 /**
  * Constants
  */
-define( 'AUTH0_THEME_ROOT', dirname( __FILE__ ) );
+define( 'AUTH0_WP_TEST_THEME_ROOT', dirname( __FILE__ ) );
 
 /**
  * Sample actions and filters ... activate and have fun!
@@ -48,11 +45,11 @@ require 'inc/wp-cli.php';
  * - Actions that override ones in a particular plugin
  * - Actions that need to run after plugin init actions
  */
-function auth0_theme_hook_init() {
-  // Allow excepts and post thumbnails on pages.
-  add_post_type_support( 'page', array( 'excerpt', 'thumbnail' ) );
+function auth0_wp_test_hook_init() {
+	// Allow excepts and post thumbnails on pages.
+	add_post_type_support( 'page', array( 'excerpt', 'thumbnail' ) );
 }
-add_action( 'init', 'auth0_theme_hook_init', 100 );
+add_action( 'init', 'auth0_wp_test_hook_init', 100 );
 
 /**
  * Add theme-specific functionality.
@@ -69,8 +66,8 @@ add_action( 'init', 'auth0_theme_hook_init', 100 );
  *
  * @link https://codex.wordpress.org/Function_Reference/add_theme_support#more-information
  */
-function auth0_theme_hook_after_setup_theme() {
-  // Let WordPress manage the meta title tag.
+function auth0_wp_test_hook_after_setup_theme() {
+	// Let WordPress manage the meta title tag.
 	add_theme_support( 'title-tag' );
 
 	// Support thumbnails.
@@ -78,7 +75,8 @@ function auth0_theme_hook_after_setup_theme() {
 
 	// HTML5 everywhere.
 	add_theme_support(
-		'html5', array(
+		'html5',
+		array(
 			'search-form',
 			'comment-form',
 			'comment-list',
@@ -87,48 +85,48 @@ function auth0_theme_hook_after_setup_theme() {
 		)
 	);
 }
-add_action( 'after_setup_theme', 'auth0_theme_hook_after_setup_theme' );
+add_action( 'after_setup_theme', 'auth0_wp_test_hook_after_setup_theme' );
 
 /**
  * Queuing up CSS for the front-end.
  *
  * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
  */
-function auth0_theme_hook_wp_enqueue_scripts() {
+function auth0_wp_test_hook_wp_enqueue_scripts() {
 	wp_enqueue_style( 'auth0-core', '//cdn.auth0.com/styleguide/core/2.0.5/core.min.css' );
 	wp_enqueue_style( 'auth0-comp', '//cdn.auth0.com/styleguide/components/2.0.0/components.min.css' );
 	wp_enqueue_style( 'auth0-test', get_stylesheet_directory_uri() . '/assets/css/main.css' );
 	wp_enqueue_script( 'jquery' );
 }
-add_action( 'wp_enqueue_scripts', 'auth0_theme_hook_wp_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'auth0_wp_test_hook_wp_enqueue_scripts' );
 
 /**
  * Queuing up JS for the login form.
  *
  * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
  */
-function auth0_theme_hook_login_enqueue_scripts() {
-	wp_enqueue_script( 'lock-ui-mods', get_stylesheet_directory_uri() . '/assets/js/lock-form-ui.js', ['jquery'], '1.2.3', true );
+function auth0_wp_test_hook_login_enqueue_scripts() {
+	wp_enqueue_script( 'lock-ui-mods', get_stylesheet_directory_uri() . '/assets/js/lock-form-ui.js', [ 'jquery' ], '1.2.3', true );
 	?>
-	<script src="<?php echo get_stylesheet_directory_uri() . '/assets/js/lock-form-ui.js' ?>"></script>
+	<script src="<?php echo get_stylesheet_directory_uri() . '/assets/js/lock-form-ui.js'; ?>"></script>
 	<?php
 }
-//add_action( 'login_footer', 'auth0_theme_hook_login_enqueue_scripts', 1000000 );
+// add_action( 'login_footer', 'auth0_wp_test_hook_login_enqueue_scripts', 1000000 );
 
 /**
  * Queuing up CSS for wp-login.
  *
  * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
  */
-function auth0_theme_login_enqueue_scripts() {
+function auth0_wp_test_login_enqueue_scripts() {
 	wp_enqueue_style( 'auth0-login', get_stylesheet_directory_uri() . '/assets/css/wp-login.css' );
 }
-add_action( 'login_enqueue_scripts', 'auth0_theme_login_enqueue_scripts' );
+add_action( 'login_enqueue_scripts', 'auth0_wp_test_login_enqueue_scripts' );
 
 /**
  * Register widget areas and update sidebar with default widgets.
  */
-function auth0_theme_hook_widgets_init() {
+function auth0_wp_test_hook_widgets_init() {
 	register_sidebar(
 		array(
 			'name'          => 'Sidebar',
@@ -144,14 +142,14 @@ function auth0_theme_hook_widgets_init() {
 	add_filter( 'widget_text', 'do_shortcode' );
 }
 
-add_action( 'widgets_init', 'auth0_theme_hook_widgets_init' );
+add_action( 'widgets_init', 'auth0_wp_test_hook_widgets_init' );
 
 /**
  * Get test page slugs
  *
  * @return array
  */
-function auth0_theme_get_test_page_slugs() {
+function auth0_wp_test_get_test_page_slugs() {
 	return [ 'settings', 'client', 'user', 'avatars', 'shortcode', 'widget', 'auth-redirect' ];
 }
 
@@ -160,7 +158,7 @@ function auth0_theme_get_test_page_slugs() {
  *
  * @return array
  */
-function auth0_theme_get_lock_mod_opts() {
+function auth0_wp_test_get_lock_mod_opts() {
 	return [
 		'custom_css',
 		'custom_js',

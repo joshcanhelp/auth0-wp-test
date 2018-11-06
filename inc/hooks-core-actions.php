@@ -15,11 +15,11 @@
  *
  * @param WP_User $user - WordPress user ID
  */
-function auth0_theme_hook_auth0_before_login( $user ) {
+function auth0_wp_test_hook_auth0_before_login( $user ) {
 	echo '<strong>WP user</strong>:<br><pre>' . print_r( $user, true ) . '</pre><hr>';
 	wp_die( 'Login process started!' );
 }
-// add_action( 'auth0_before_login', 'auth0_theme_hook_auth0_before_login', 10, 1 );
+// add_action( 'auth0_before_login', 'auth0_wp_test_hook_auth0_before_login', 10, 1 );
 
 /**
  * Stop the login process after WP login.
@@ -34,7 +34,7 @@ function auth0_theme_hook_auth0_before_login( $user ) {
  * @param string   $access_token  - bearer access token from Auth0 (not used in implicit flow)
  * @param string   $refresh_token - refresh token from Auth0 (not used in implicit flow)
  */
-function auth0_theme_hook_auth0_user_login( $user_id, $userinfo, $is_new, $id_token, $access_token, $refresh_token ) {
+function auth0_wp_test_hook_auth0_user_login( $user_id, $userinfo, $is_new, $id_token, $access_token, $refresh_token ) {
 	echo '<strong>WP user ID</strong>:<br>' . $user_id . '<hr>';
 	echo '<strong>Auth0 user info</strong>:<br><pre>' . print_r( $userinfo, true ) . '</pre><hr>';
 	echo '<strong>Added to WP DB?</strong>:<br>' . ( $is_new ? 'yep' : 'nope' ) . '<hr>';
@@ -43,7 +43,7 @@ function auth0_theme_hook_auth0_user_login( $user_id, $userinfo, $is_new, $id_to
 	echo '<strong>Refresh Token</strong>:<br>' . ( $refresh_token ? $refresh_token : 'not provided' ) . '<hr>';
 	wp_die( 'Login successful! <a href="' . home_url() . '">Home</a>' );
 }
-// add_action( 'auth0_user_login', 'auth0_theme_hook_auth0_user_login', 10, 6 );
+// add_action( 'auth0_user_login', 'auth0_wp_test_hook_auth0_user_login', 10, 6 );
 
 /**
  * Stop the login process after a new user has been created.
@@ -57,7 +57,7 @@ function auth0_theme_hook_auth0_user_login( $user_id, $userinfo, $is_new, $id_to
  * @param string  $f_name   - first name for created user
  * @param string  $l_name   - last name for created user
  */
-function auth0_theme_hook_wpa0_user_created( $user_id, $email, $password, $f_name, $l_name ) {
+function auth0_wp_test_hook_wpa0_user_created( $user_id, $email, $password, $f_name, $l_name ) {
 	echo '<strong>User ID</strong>:<br>' . $user_id . '<hr>';
 	echo '<strong>Email</strong>:<br>' . $email . '<hr>';
 	echo '<strong>Password</strong>:<br>' . $password . '<hr>';
@@ -65,4 +65,4 @@ function auth0_theme_hook_wpa0_user_created( $user_id, $email, $password, $f_nam
 	echo '<strong>Last name</strong>:<br>' . $l_name . '<hr>';
 	wp_die( 'User created!' );
 }
-// add_action( 'wpa0_user_created', 'auth0_theme_hook_wpa0_user_created', 10, 5 );
+// add_action( 'wpa0_user_created', 'auth0_wp_test_hook_wpa0_user_created', 10, 5 );

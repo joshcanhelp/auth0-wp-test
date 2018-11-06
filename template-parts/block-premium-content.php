@@ -8,9 +8,9 @@
 ?>
 <div class="the-content">
 <?php if ( is_user_logged_in() ) : ?>
-  <?php the_content(); ?>
+	<?php the_content(); ?>
 <?php else : ?>
-  <?php the_excerpt(); ?>
-  <?php do_shortcode( '[auth0]' ) ?>
+	<?php the_excerpt(); ?>
+	<?php do_shortcode( '[auth0]' ); ?>
 <?php endif; ?>
 </div>

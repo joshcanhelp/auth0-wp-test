@@ -20,7 +20,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 */
 		public function __construct() {
 			$this->opts_obj = WP_Auth0_Options::Instance();
-			$this->opts = $this->opts_obj->get_options();
+			$this->opts     = $this->opts_obj->get_options();
 		}
 
 		/**
@@ -80,7 +80,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 *
 		 * @throws \WP_CLI\ExitException
 		 */
-		public function make_test_pages($args = []) {
+		public function make_test_pages( $args = [] ) {
 
 			if ( isset( $args[0] ) ) {
 				switch_to_blog( absint( $args[0] ) );
@@ -96,7 +96,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				]
 			);
 			if ( $parent_id && ! is_wp_error( $parent_id ) ) {
-				foreach ( auth0_theme_get_test_page_slugs() as $slug ) {
+				foreach ( auth0_wp_test_get_test_page_slugs() as $slug ) {
 					$page_id = wp_insert_post(
 						[
 							'post_type'   => 'page',
@@ -143,8 +143,8 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				return;
 			}
 
-			$client_credentials      = new WP_Auth0_Api_Client_Credentials( $this->opts_obj );
-			$api_token         = $client_credentials->call();
+			$client_credentials = new WP_Auth0_Api_Client_Credentials( $this->opts_obj );
+			$api_token          = $client_credentials->call();
 
 			if ( ! $api_token ) {
 				WP_CLI::error( 'WP user deleted, no app token to delete existing Auth0 user' );

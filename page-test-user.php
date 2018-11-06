@@ -23,7 +23,7 @@ $all_opts = $opts->get_options();
 	<?php
 	$current_uid = get_current_user_id();
 	if ( $current_uid ) :
-	?>
+		?>
 	 <h2>WP user</h2>
 	 <pre><?php var_dump( get_user_by( 'id', $current_uid )->data ); ?></pre>
 		<?php if ( function_exists( 'get_auth0userinfo' ) && $auth0_user = get_auth0userinfo( $current_uid ) ) : ?>

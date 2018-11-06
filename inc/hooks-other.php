@@ -16,7 +16,7 @@
  *
  * @return string
  */
-function auth0_theme_hook_login_url( $login_url, $redirect ) {
+function auth0_wp_test_hook_login_url( $login_url, $redirect ) {
 	if ( ! empty( $redirect ) ) {
 		$login_url = remove_query_arg( 'redirect_to', $login_url );
 		$redirect  = add_query_arg( 'logged_in', 1, $redirect );
@@ -26,7 +26,7 @@ function auth0_theme_hook_login_url( $login_url, $redirect ) {
 
 	return $login_url;
 }
-// add_filter( 'login_url', 'auth0_theme_hook_login_url', 10, 2 );
+// add_filter( 'login_url', 'auth0_wp_test_hook_login_url', 10, 2 );
 
 /**
  * Adds an Auth0 user when a new user is created in the WP-Admin.
@@ -37,15 +37,15 @@ function auth0_theme_hook_login_url( $login_url, $redirect ) {
  *
  * @return void|WP_Error
  */
-function auth0_theme_hook_create_auth0_user_from_wp_admin( $wp_user_id ) {
+function auth0_wp_test_hook_create_auth0_user_from_wp_admin( $wp_user_id ) {
 
 	// WordPress user was not created so do not proceed.
 	if ( is_wp_error( $wp_user_id ) ) {
 		return;
 	}
 
-	$a0_options     = WP_Auth0_Options::Instance();
-	$payload        = array(
+	$a0_options = WP_Auth0_Options::Instance();
+	$payload    = array(
 		'client_id'  => $a0_options->get( 'client_id' ),
 		// This is run during a POST request to create the user so pull the data from global.
 		'email'      => $_POST['email'],
@@ -68,7 +68,7 @@ function auth0_theme_hook_create_auth0_user_from_wp_admin( $wp_user_id ) {
 	$user_repo = new WP_Auth0_UsersRepo( $a0_options );
 	$user_repo->update_auth0_object( $wp_user_id, $new_auth0_user );
 }
-//add_action( 'edit_user_created_user', 'auth0_theme_hook_create_auth0_user_from_wp_admin', 10 );
+// add_action( 'edit_user_created_user', 'auth0_wp_test_hook_create_auth0_user_from_wp_admin', 10 );
 
 /**
  * Adds an Auth0 user when a new customer is created in WooCommerce.
@@ -80,7 +80,7 @@ function auth0_theme_hook_create_auth0_user_from_wp_admin( $wp_user_id ) {
  *
  * @link https://docs.woocommerce.com/wc-apidocs/source-function-wc_create_new_customer.html#114
  */
-function auth0_theme_hook_woocommerce_created_customer( $customer_id, $new_customer_data, $password_generated ) {
+function auth0_wp_test_hook_woocommerce_created_customer( $customer_id, $new_customer_data ) {
 	$a0_options     = WP_Auth0_Options::Instance();
 	$payload        = array(
 		'client_id'  => $a0_options->get( 'client_id' ),
@@ -96,17 +96,17 @@ function auth0_theme_hook_woocommerce_created_customer( $customer_id, $new_custo
 		$user_repo->update_auth0_object( $customer_id, $new_auth0_user );
 	}
 }
-// add_action( 'woocommerce_created_customer', 'auth0_theme_hook_woocommerce_created_customer', 10, 3 );
+// add_action( 'woocommerce_created_customer', 'auth0_wp_test_hook_woocommerce_created_customer', 10, 2 );
 
 /**
  * Play nicely with Restricted Site Access.
  *
  * @param bool $is_restricted - Original $is_restricted value
- * @param WP $wp - WP object.
+ * @param WP   $wp - WP object.
  *
  * @return mixed
  */
-function auth0_mu_hook_restricted_site_access_is_restricted( $is_restricted, $wp ) {
+function auth0_wp_test_restricted_site_access_is_restricted( $is_restricted, $wp ) {
 	if (
 		! empty( $wp->query_vars['auth0'] )
 		&& empty( $wp->query_vars['page'] )
@@ -116,4 +116,4 @@ function auth0_mu_hook_restricted_site_access_is_restricted( $is_restricted, $wp
 	}
 	return $is_restricted;
 }
-//add_filter( 'restricted_site_access_is_restricted', 'auth0_mu_hook_restricted_site_access_is_restricted', 100, 2 );
+// add_filter( 'restricted_site_access_is_restricted', 'auth0_wp_test_restricted_site_access_is_restricted', 100, 2 );

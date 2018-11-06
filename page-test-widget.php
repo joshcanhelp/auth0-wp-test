@@ -23,7 +23,7 @@ $opts = WP_Auth0_Options::Instance();
 		<?php get_template_part( 'template-parts/block', 'lock-mods' ); ?>
 		<?php
 		$widget_opts = [];
-		foreach ( auth0_theme_get_lock_mod_opts() as $attr ) {
+		foreach ( auth0_wp_test_get_lock_mod_opts() as $attr ) {
 			if ( isset( $_GET[ $attr ] ) ) {
 				$widget_opts[ $attr ] = rawurldecode( $_GET[ $attr ] );
 			}

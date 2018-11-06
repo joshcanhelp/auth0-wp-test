@@ -1,0 +1,26 @@
+{
+    "name": "joshcanhelp/auth0-wp-test",
+    "description": "WordPress Testing Theme for Auth0",
+    "license": "GPLv2",
+    "require": {
+        "php": "^5.3 || ^7.0"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3",
+        "wp-coding-standards/wpcs": "^1",
+        "phpunit/phpunit": "^6.5.0",
+        "phpcompatibility/phpcompatibility-wp": "*"
+    },
+    "authors": [
+        {
+            "name": "Josh Cunningham",
+            "email": "josh@joshcanhelp.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "scripts": {
+        "phpcs": "\"vendor/bin/phpcs\"",
+        "phpcbf": "\"vendor/bin/phpcbf\"",
+        "sniffs": "vendor/bin/phpcs --standard=phpcs-ruleset.xml -e"
+    }
+}

@@ -41,7 +41,7 @@ $opts = WP_Auth0_Options::Instance();
 							$opts->get( 'client_id' )
 						)
 					);
-		?>
+				?>
 		</pre>
 	<?php endif; ?>
 		</div>

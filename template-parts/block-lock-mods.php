@@ -5,7 +5,7 @@
 		function ( $item ) {
 			printf( '<code>%s</code> ', $item );
 		},
-		auth0_theme_get_lock_mod_opts()
+		auth0_wp_test_get_lock_mod_opts()
 	) ?></p>
 <?php if ( is_user_logged_in() ) : ?>
 <p><a href="<?php echo wp_logout_url( get_permalink() ); ?>" class="btn btn-success btn-sm">Logout to test</a></p>
