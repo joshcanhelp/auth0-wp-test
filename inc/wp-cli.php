@@ -172,23 +172,25 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		}
 
 		/**
+		 * @param bool $exit - Exit the process on error?
+		 *
 		 * @throws \WP_CLI\ExitException
 		 */
-		public function delete_client() {
+		public function delete_client( $exit = true ) {
 			if ( empty( $this->opts['client_id'] ) ) {
-				WP_CLI::error( 'No Client ID for this site' );
+				WP_CLI::error( 'No Client ID for this site', $exit );
 				return;
 			}
 
 			if ( empty( $this->opts['auth0_app_token'] ) ) {
-				WP_CLI::error( 'No API token for this site' );
+				WP_CLI::error( 'No API token for this site', $exit );
 				return;
 			}
 
 			$client_id = $this->opts['client_id'];
 			$app_token = $this->opts['auth0_app_token'];
 
-			$resp = wp_remote_request(
+			$delete_resp = wp_remote_request(
 				'https://' . $this->opts['domain'] . '/api/v2/clients/' . $client_id,
 				[
 					'method'  => 'DELETE',
@@ -198,15 +200,87 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				]
 			);
 
-			$delete_resp_code = (int) wp_remote_retrieve_response_code( $resp );
-			$delete_resp_body = wp_remote_retrieve_body( $resp );
+			$delete_resp_code = (int) wp_remote_retrieve_response_code( $delete_resp );
+			$delete_resp_body = wp_remote_retrieve_body( $delete_resp );
 
 			if ( 204 !== $delete_resp_code ) {
-				WP_CLI::error( $delete_resp_body );
+				WP_CLI::error( $delete_resp_body, $exit );
 				return;
 			}
 
 			WP_CLI::success( 'Auth0 Client deleted!' );
+		}
+
+		/**
+		 * @param bool $exit - Exit the process on error?
+		 *
+		 * @throws \WP_CLI\ExitException
+		 */
+		public function delete_connection( $exit = true ) {
+
+			if ( empty( $this->opts['auth0_app_token'] ) ) {
+				WP_CLI::error( 'No API token for this site', $exit );
+				return;
+			}
+
+			$remote_req_opts = [
+				'method' => 'GET',
+				'headers' => [
+					'Authorization' => 'Bearer ' . $this->opts['auth0_app_token'],
+				],
+			];
+			$connections_url = 'https://' . $this->opts['domain'] . '/api/v2/connections';
+
+			$search_resp = wp_remote_request(
+				add_query_arg(
+					[
+						'name' => 'DB-' . get_auth0_curatedBlogName(),
+						'strategy' => 'auth0',
+						'fields' => 'id'
+					],
+					$connections_url
+				),
+				$remote_req_opts
+			);
+
+			$search_resp_code = (int) wp_remote_retrieve_response_code( $search_resp );
+			$search_resp_body = json_decode( wp_remote_retrieve_body( $search_resp ) );
+
+			if ( 200 !== $search_resp_code || empty( $search_resp_body ) ) {
+				WP_CLI::error( 'No Connection found or error', $exit );
+				return;
+			}
+
+			$delete_req_opts = $remote_req_opts;
+			$delete_req_opts['method'] = 'DELETE';
+			$delete_resp = wp_remote_request(
+				'https://' . $this->opts['domain'] . '/api/v2/connections/' . $search_resp_body[0]->id,
+				$delete_req_opts
+			);
+
+			$delete_resp_code = (int) wp_remote_retrieve_response_code( $delete_resp );
+			$delete_resp_body = wp_remote_retrieve_body( $delete_resp );
+
+			if ( 204 !== $delete_resp_code ) {
+				WP_CLI::error( $delete_resp_body, $exit );
+				return;
+			}
+
+			WP_CLI::success( 'Auth0 Connection deleted!' );
+		}
+
+		/**
+		 * @throws \WP_CLI\ExitException
+		 */
+		public function reset_install() {
+
+			if ( empty( $this->opts['auth0_app_token'] ) ) {
+				WP_CLI::error( 'No API token for this site' );
+			}
+
+			$this->delete_client( false );
+			$this->delete_connection( false );
+			WP_Auth0::uninstall();
 		}
 	}
 

@@ -13,7 +13,7 @@
  *
  * @see WP_Auth0_LoginManager::do_login()
  *
- * @param WP_User $user - WordPress user ID
+ * @param WP_User $user - WordPress user object.
  */
 function auth0_wp_test_hook_auth0_before_login( $user ) {
 	echo '<strong>WP user</strong>:<br><pre>' . print_r( $user, true ) . '</pre><hr>';

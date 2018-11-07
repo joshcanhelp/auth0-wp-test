@@ -122,7 +122,7 @@ function auth0_wp_test_hook_auth0_login_css( $css ) {
  * @return string
  */
 function auth0_wp_test_hook_auth0_login_form_tpl( $tpl_path, $lock_options, $show_legacy_login ) {
-	return AUTH0_WP_TEST_THEME_ROOT . '/templates/auth0-login-form.html';
+	return get_stylesheet_directory_uri() . '/templates/auth0-login-form.html';
 }
 // add_filter( 'auth0_login_form_tpl', 'auth0_wp_test_hook_auth0_login_form_tpl', 10, 3 );
 
@@ -242,7 +242,7 @@ function auth0_wp_test_hook_authorize_url_params( $params, $connection, $redirec
 // add_filter( 'auth0_authorize_url_params', 'auth0_wp_test_hook_authorize_url_params', 10, 3 );
 
 /**
- * Adjust the authorize URL parameters used for auto-login and universal login page.
+ * Adjust the authorize URL before redirecting.
  *
  * @param string $auth_url - Built authorize URL.
  * @param array  $auth_params - Existing URL parameters.
