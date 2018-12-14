@@ -18,16 +18,18 @@ $all_opts = $opts->get_options();
 ksort( $all_opts );
 ?>
 
-	<article>
+<article>
 	<?php get_template_part( 'template-parts/block', 'test-tpl-header' ); ?>
 
-		<div class="the-content">
-	<?php if ( ! class_exists( 'WP_Auth0_Options' ) ) : ?>
-				<div class="alert alert-warning"><strong>Auth0 is not installed</strong></div>
-	<?php else : ?>
-				<?php wp_a0_opts(); ?>
-	<?php endif; ?>
-		</div>
-	</article>
+    <div class="the-content">
+		<?php if ( ! class_exists( 'WP_Auth0_Options' ) ) : ?>
+            <div class="alert alert-warning"><strong>Auth0 is not installed.</strong></div>
+		<?php elseif ( ! current_user_can( 'manage_options' ) ) : ?>
+            <div class="alert alert-warning"><strong>User is not authorized.</strong></div>
+		<?php else : ?>
+			<?php wp_a0_opts(); ?>
+		<?php endif; ?>
+    </div>
+</article>
 
 <?php get_template_part( 'template-parts/block', 'footer' ); ?>
