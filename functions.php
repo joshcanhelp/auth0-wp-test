@@ -24,6 +24,8 @@ if ( ! function_exists( 'add_action' ) ) {
 	die( 'Nothing to do...' );
 }
 
+if ( class_exists( 'JWT' ) ) { \JWT::$leeway = 60; }
+
 /**
  * Constants
  */
