@@ -111,4 +111,4 @@ function auth0_wp_test_redirect_for_auth() {
 
 	return;
 }
- add_action( 'template_redirect', 'auth0_wp_test_redirect_for_auth', 1 );
+// add_action( 'template_redirect', 'auth0_wp_test_redirect_for_auth', 1 );
