@@ -16,19 +16,4 @@ if ( ! is_user_logged_in() ) {
 	auth_redirect();
 }
 
-get_template_part( 'template-parts/block', 'header' );
-the_post();
-?>
-
-	<article>
-	    <?php get_template_part( 'template-parts/block', 'test-tpl-header' ); ?>
-
-		<div class="the-content">
-			<pre>
-				<?php var_dump( wp_get_current_user() ); ?>
-		    </pre>
-		</div>
-
-	</article>
-
-<?php get_template_part( 'template-parts/block', 'footer' ); ?>
+var_dump( wp_get_current_user() );
