@@ -89,3 +89,26 @@ function auth0_wp_test_restricted_site_access_is_restricted( $is_restricted, $wp
 	return $is_restricted;
 }
 // add_filter( 'restricted_site_access_is_restricted', 'auth0_wp_test_restricted_site_access_is_restricted', 100, 2 );
+
+/**
+ * Redirect a user without a WordPress session to log in.
+ */
+function auth0_wp_test_redirect_for_auth() {
+	if ( is_user_logged_in() ) {
+		// User is logged in, nothing to do.
+		return;
+	}
+
+	if ( 'page-template-that-needs-auth.php' === get_page_template_slug() ) {
+		// User is trying to access a page template that requires authentication.
+		auth_redirect();
+	}
+
+	if ( 'post' === get_post_type() ) {
+		// User is trying to access a post type that requires authentication.
+		auth_redirect();
+	}
+
+	return;
+}
+ add_action( 'template_redirect', 'auth0_wp_test_redirect_for_auth', 1 );
