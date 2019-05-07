@@ -80,6 +80,22 @@ if ( WP_DEBUG ) {
 	}
 
 	/**
+	 * Deletes all Auth0 user meta fields.
+	 */
+	function wp_a0_nuke_meta() {
+		global $wpdb;
+		$repo = new WP_Auth0_UsersRepo( WP_Auth0_Options::Instance() );
+		$args = array(
+			'meta_key' => $wpdb->prefix . 'auth0_id',
+			'meta_compare' => 'EXISTS',
+		);
+		$users = new WP_User_Query( $args );
+		foreach ( $users->get_results() as $user ) {
+			$repo->delete_auth0_object( $user->ID );
+		}
+	}
+
+	/**
 	 * Output stored token value
 	 */
 	function wp_a0_token() {
@@ -109,6 +125,15 @@ if ( WP_DEBUG ) {
 		WP_Auth0_Api_Client::JWKfetch( WP_Auth0_Options::Instance()->get( 'domain' ) );
 		echo 'Post-fetch: ';
 		echo '<pre>' . print_r( get_transient( 'WP_Auth0_JWKS_cache' ), true ) . '</pre>';
+	}
+
+	function wp_a0_get_all_user_a0id() {
+		foreach( get_users() as $user ) {
+			// TODO: Remove debugging
+//			echo '<pre>' . print_r( $user, TRUE ) . '</pre>'; die();
+			$a0_id = \WP_Auth0_UsersRepo::get_meta( $user->ID, 'auth0_id' );
+			echo $user->ID . ': ' . $a0_id . '<br>';
+		}
 	}
 
 	/**
