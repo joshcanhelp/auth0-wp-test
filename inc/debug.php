@@ -122,7 +122,7 @@ if ( WP_DEBUG ) {
 	function wp_a0_jwks_fetch_test() {
 		echo 'Pre-delete: <br>';
 		echo '<pre>' . print_r( get_transient( 'WP_Auth0_JWKS_cache' ), true ) . '</pre>';
-		WP_Auth0_Api_Client::JWKfetch( WP_Auth0_Options::Instance()->get( 'domain' ) );
+		(new WP_Auth0_Api_Get_Jwks($this->options))->call();
 		echo 'Post-fetch: ';
 		echo '<pre>' . print_r( get_transient( 'WP_Auth0_JWKS_cache' ), true ) . '</pre>';
 	}

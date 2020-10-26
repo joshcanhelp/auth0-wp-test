@@ -24,8 +24,6 @@ if ( ! function_exists( 'add_action' ) ) {
 	die( 'Nothing to do...' );
 }
 
-if ( class_exists( 'JWT' ) ) { \JWT::$leeway = 60; }
-
 /**
  * Constants
  */
@@ -121,6 +119,7 @@ function auth0_wp_test_hook_login_enqueue_scripts() {
  * @see https://codex.wordpress.org/Function_Reference/wp_enqueue_style
  */
 function auth0_wp_test_login_enqueue_scripts() {
+	wp_enqueue_script( 'auth0-login', get_stylesheet_directory_uri() . '/assets/js/lock-signup-fields.js' );
 	wp_enqueue_style( 'auth0-login', get_stylesheet_directory_uri() . '/assets/css/wp-login.css' );
 }
 add_action( 'login_enqueue_scripts', 'auth0_wp_test_login_enqueue_scripts' );
@@ -175,3 +174,13 @@ function auth0_wp_test_get_lock_mod_opts() {
 		'social_big_buttons',
 	];
 }
+
+//function nampespaced_hook_template_redirect() {
+//	if ( ! is_user_logged_in() ) {
+//		$redirect_path = isset( $_SERVER['REDIRECT_URL'] ) ? $_SERVER['REDIRECT_URL'] : $_SERVER['REQUEST_URI'];
+//	  $login_url = wp_login_url( site_url( $redirect_path ), true );
+//	  wp_redirect( $login_url );
+//	  exit();
+//	}
+//}
+//add_action( 'template_redirect', 'nampespaced_hook_template_redirect' );

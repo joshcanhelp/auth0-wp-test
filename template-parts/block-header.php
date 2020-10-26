@@ -22,7 +22,7 @@
 	<p>
 	<?php if ( is_user_logged_in() ) : ?>
 			<a class="btn btn-primary btn-sm" href="<?php echo get_edit_profile_url(); ?>">Profile</a>&nbsp;
-			<a class="btn btn-primary btn-sm" href="<?php echo home_url( 'auth-zero/test-user' ); ?>">Test User</a>&nbsp;
+			<a class="btn btn-primary btn-sm" href="<?php echo home_url( 'auth0-testing/test-user' ); ?>">Test User</a>&nbsp;
 			<a class="btn btn-primary btn-sm" href="<?php echo wp_logout_url( get_the_ID() ? get_permalink() : '' ); ?>">Logout</a>&nbsp;
 		<?php if ( current_user_can( 'manage_options' ) ) : ?>
 				<a class="btn btn-success btn-sm" href="<?php echo admin_url( 'admin.php?page=wpa0' ); ?>">Settings</a>&nbsp;
@@ -31,7 +31,9 @@
 	<?php endif ?>
 	<?php else : ?>
 			<a class="btn btn-primary btn-sm" href="<?php echo wp_login_url(); ?>">Login</a>&nbsp;
-			<a class="btn btn-primary btn-sm" href="<?php echo wp_login_url(); ?>?wle">Login Override</a>&nbsp;
+			<?php if ( function_exists( 'wp_auth0_login_override_url' ) && wp_auth0_login_override_url() ) : ?>
+			<a class="btn btn-primary btn-sm" href="<?php echo wp_auth0_login_override_url(); ?>">Login Override</a>&nbsp;
+			<?php endif; ?>
 	<?php endif ?>
 	</p>
 	<?php if ( is_user_logged_in() && function_exists( 'get_currentauth0user' ) ) : ?>

@@ -31,6 +31,15 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		}
 
 		/**
+		 * Show all options
+		 */
+		public function esc_attr() {
+			WP_CLI::line(esc_attr('\u0022;console.log("hi")'));
+			WP_CLI::line(sanitize_text_field('\u0022;console.log("hi")'));
+			WP_CLI::line(json_encode('\u0022;console.log("hi")'));
+		}
+
+		/**
 		 * Set an option or multiple options.
 		 *
 		 * @param array $args       - used to set a single option.
@@ -90,7 +99,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				[
 					'post_type'   => 'page',
 					'post_title'  => 'Auth0 Testing',
-					'post_name'   => 'auth-zero',
+					'post_name'   => 'auth0-testing',
 					'post_status' => 'publish',
 					'post_author' => 1,
 				]
